@@ -36,3 +36,13 @@ $ sam deploy --template-file packaged.yaml --stack-name weather-deploy --capabil
 $ aws cloudformation describe-stacks --stack-name weather-deploy --query 'Stacks[].Outputs'
 ※「"OutputKey": "WeatherApi"」の「"OutputValue"」がAPI Gatewayのエンドポイント
 ```
+
+```bash
+「get_weather_info_csv/lambda_function.py」から読み込むための設定ファイルが必要です。
+$ cat get_weather_info_csv/settings.ini
+[openweathermap]
+url_current  = https://api.openweathermap.org/data/2.5/weather?lang=ja&units=metric
+url_forecast = https://api.openweathermap.org/data/2.5/forecast?lang=ja&units=metric
+api_key = {your api key}
+
+```
