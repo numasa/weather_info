@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  for lambda function [getWetherInfoCSV]
+
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  GetWeatherInfoCSVFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: get_weather_info_csv/
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.7
+      Events:
+        Weather:
+          Type: Api
+          Properties:
+            Path: /weather
+            Method: get
+
+Outputs:
+  WeatherApi:
+    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/weather"
+  WeatherFunction:
+    Description: "GetWeatherInfoCSV Lambda Function ARN"
+    Value: !GetAtt GetWeatherInfoCSVFunction.Arn
+  WeatherFunctionIamRole:
+    Description: "Implicit IAM Role created for GetWeatherInfoCSV function"
+    Value: !GetAtt GetWeatherInfoCSVFunction.Arn
